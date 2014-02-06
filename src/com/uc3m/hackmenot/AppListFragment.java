@@ -5,6 +5,7 @@ import java.util.List;
 
 import uc3m.hackmenot.R;
 
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -79,7 +80,9 @@ public class AppListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView list, View v, int position, long id) {
 		RowItem row = (RowItem) list.getItemAtPosition(position);
-		Toast.makeText(getActivity(), row.getPkg(), Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(getActivity().getBaseContext(), TaskActivity.class);
+		intent.putExtra("package", row.getPkg());
+	    startActivity(intent);
 
 	}
 }

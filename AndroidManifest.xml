@@ -34,6 +34,14 @@
         </activity>
 
         <activity android:name="com.uc3m.hackmenot.CollectionDemoActivity" android:label="@string/demo_collection" />
+        
+        <activity
+	        android:name="com.uc3m.hackmenot.TaskActivity"
+	        android:parentActivityName="com.uc3m.hackmenot.MainActivity" >
+	        <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="com.uc3m.hackmenot.MainActivity" />
+	    </activity>
 
     </application>
 </manifest>
