@@ -1,6 +1,7 @@
-package com.uc3m.hackmenot;
+package com.uc3m.hackmenot.adapter;
 
 import java.util.List;
+
 
 import uc3m.hackmenot.R;
 import android.app.Activity;
@@ -12,12 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
  
-public class CustomListViewAdapter extends ArrayAdapter<RowItem> {
+public class CustomListViewAdapter extends ArrayAdapter<AndroidApp> {
  
     Context context;
  
     public CustomListViewAdapter(Context context, int resourceId,
-            List<RowItem> items) {
+            List<AndroidApp> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -31,7 +32,7 @@ public class CustomListViewAdapter extends ArrayAdapter<RowItem> {
  
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        RowItem rowItem = getItem(position);
+        AndroidApp rowItem = getItem(position);
  
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
