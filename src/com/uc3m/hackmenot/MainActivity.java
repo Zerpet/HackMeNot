@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package uc3m.hackmenot;
+package com.uc3m.hackmenot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import uc3m.hackmenot.R;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

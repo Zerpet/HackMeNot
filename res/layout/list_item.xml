@@ -24,7 +24,7 @@
     <!-- App name-->
 
     <TextView
-        android:id="@+id/appname"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
@@ -41,7 +41,7 @@
         android:id="@+id/pkg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/appname"
+        android:layout_below="@id/title"
         android:layout_marginTop="1dip"
         android:layout_toLeftOf="@+id/duration"
         android:layout_toRightOf="@+id/thumbnail"
@@ -49,17 +49,6 @@
         android:textColor="#343434"
         android:textSize="14sp" />
 	
-    <!-- Permissions # -->
-
-    <TextView
-        android:id="@+id/auth"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/pkg"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/pkg"
-        android:text="22 permisos"
-        android:textColor="#343434"
-        android:textSize="12sp" />
+  
   
 </RelativeLayout>
