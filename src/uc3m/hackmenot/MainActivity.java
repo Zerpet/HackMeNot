@@ -16,6 +16,9 @@
 
 package uc3m.hackmenot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -28,6 +31,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -120,15 +124,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 case 0:
                     // The first section of the app is the most interesting -- it offers
                     // a launchpad into the other demonstrations in this example application.
-                    return new LaunchpadSectionFragment();
+                	Fragment fragment = new AppListFragment();
+	                return fragment;
 
                 default:
-                    // The other sections of the app are dummy placeholders.
-                    Fragment fragment = new DummySectionFragment();
+                    /* The other sections of the app are dummy placeholders.
+                    Fragment fragment1 = new DummySectionFragment();
                     Bundle args = new Bundle();
                     args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-                    fragment.setArguments(args);
-                    return fragment;
+                    fragment1.setArguments(args);
+                    return fragment1;*/ 
+	                return new AppListFragment();
             }
         }
 
@@ -158,13 +164,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	}
 			return title;
         }
-    }
-    
-    /**
-     * TODO: Application list fragment (y la utilizamos para las tres pestañas)
-     */
-    public static class AppListFragment extends Fragment {
-
     }
 
     /**

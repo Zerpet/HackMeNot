@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+ 
+    <!--  ListRow Left sied Thumbnail image -->
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+ 
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:src="@drawable/ic_launcher"/>
+ 
+    </LinearLayout>
+ 
+    <!-- App name-->
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="T3chFest"
+        android:textColor="#040404"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+ 
+    <!-- Package Name -->
+
+    <TextView
+        android:id="@+id/pkg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appname"
+        android:layout_marginTop="1dip"
+        android:layout_toLeftOf="@+id/duration"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="com.example.t3chfest"
+        android:textColor="#343434"
+        android:textSize="14sp" />
+	
+    <!-- Permissions # -->
+
+    <TextView
+        android:id="@+id/auth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pkg"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pkg"
+        android:text="22 permisos"
+        android:textColor="#343434"
+        android:textSize="12sp" />
+  
+</RelativeLayout>
