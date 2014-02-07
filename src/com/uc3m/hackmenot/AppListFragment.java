@@ -1,6 +1,7 @@
 package com.uc3m.hackmenot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.uc3m.hackmenot.adapter.CustomListViewAdapter;
@@ -32,15 +33,17 @@ public class AppListFragment extends ListFragment {
 	private List<AndroidApp> rowItems;
 	private List<Permission> perms;
 	private PermissionsDataSource datasource;
-	
+	int security_level;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		security_level = 3;
 		datasource = new PermissionsDataSource(getActivity());
-	    datasource.open();
-	    perms = datasource.getAllPermissions();
-		
+		datasource.open();
+		perms = datasource.getAllPermissions(); 
+
 		PackageManager pm = getActivity().getPackageManager();
 		List<ApplicationInfo> packages = pm
 				.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -64,10 +67,16 @@ public class AppListFragment extends ListFragment {
 				String applicationPackage = applicationInfo.packageName;
 				Drawable applicationIcon = pm.getApplicationIcon(ai);
 				String[] applicationPermissions = packageInfo.requestedPermissions;
-				
-				AndroidApp item = new AndroidApp(applicationIcon, applicationName,
-						applicationPackage,applicationPermissions);
-				rowItems.add(item);
+
+				AndroidApp item = new AndroidApp(applicationIcon,
+						applicationName, applicationPackage,
+						applicationPermissions);
+
+				int app_security_level = getAppThreatLevel(item);
+				if (app_security_level == security_level) {
+					rowItems.add(item);
+				}
+
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -78,17 +87,31 @@ public class AppListFragment extends ListFragment {
 				getActivity(), R.layout.list_item, rowItems);
 		setListAdapter(adapter);
 	}
-	
-	private int getAppThreatLevel (AndroidApp app) {
-		String [] appPerms = app.getPerms();
-		int threat_level = 0;
 
-		
-		
-		return 1;
+	private int getAppThreatLevel(AndroidApp app) {
+		String[] appPerms = app.getPerms();
+		int threat_level = 0;
+		for (int i=0;i<appPerms.length;i++) {
+			Iterator<Permission> iterator = perms.iterator();
+			while (iterator.hasNext()) {
+				String permisobbdd= appPerms[i];
+				
+				String permisoapp = iterator.next().getPermission();
+				String[] aux_tag = permisoapp.split("\\.");
+			    permisoapp = aux_tag[aux_tag.length > 1 ? aux_tag.length - 1 :  0];
+			    
+				if (permisobbdd.equals(permisoapp)) {
+					if (iterator.next().getThreatLevel() > threat_level) {
+						threat_level = iterator.next().getThreatLevel();
+					}
+					break;
+				}
+			}
+			i++;
+		}
+		return threat_level;
 	}
-	
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -101,9 +124,10 @@ public class AppListFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView list, View v, int position, long id) {
 		AndroidApp row = (AndroidApp) list.getItemAtPosition(position);
-		Intent intent = new Intent(getActivity().getBaseContext(), TaskActivity.class);
+		Intent intent = new Intent(getActivity().getBaseContext(),
+				TaskActivity.class);
 		intent.putExtra("package", row.getPkg());
-	    startActivity(intent);
+		startActivity(intent);
 
 	}
 }
