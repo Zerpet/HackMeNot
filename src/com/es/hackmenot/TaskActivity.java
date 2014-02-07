@@ -75,19 +75,38 @@ public class TaskActivity extends Activity{
 				for (int i = 0; i < requestedPermissions.length; i++) {
 					String[] aux_tag 		= requestedPermissions[i].split("\\.");
 					String permission_tag 	= aux_tag[aux_tag.length > 1 ? aux_tag.length - 1 :  0];
-					int id = 0;
+					int id = 0,risk = 0;
 					
 					for(Permission per :  permissions_db){
 						if(per.getPermission().equals(permission_tag)){
-							id = per.getId();
+							id	 = per.getId();
+							risk = per.getThreatLevel();
 						}
+					}
+					if(risk == 0){
+						continue;
 					}
 					
 					TextView name_permission = new TextView(this);
 					name_permission.setText(permission_tag);
 					
+					ImageView image_permission = new ImageView(this);
+					switch(risk){
+						case 1:
+							image_permission.setImageResource(R.drawable.low_risk);
+							break;
+						case 2:
+							image_permission.setImageResource(R.drawable.medium_risk);
+							break;
+						case 3:
+							image_permission.setImageResource(R.drawable.high_risk);
+							break;
+					}
+					
+					
 					LinearLayout aux 			= new LinearLayout(this);
 					aux.setOrientation(LinearLayout.HORIZONTAL);
+					aux.addView(image_permission);
 					aux.addView(name_permission);
 					aux.setId(id);
 					aux.setPadding(50, 10, 0, 10);
