@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class PermissionsDataSource {
@@ -48,9 +49,24 @@ public class PermissionsDataSource {
 
 	private Permission cursorToPermission(Cursor cursor) {
 		Permission permission = new Permission();
-		permission.setPermission(cursor.getString(0));
-		permission.setThreatLevel(Integer.parseInt(cursor.getString(1)));
-		permission.setDescription(cursor.getString(2));
+		permission.setId(cursor.getInt(0));
+		permission.setPermission(cursor.getString(1));
+		permission.setThreatLevel(cursor.getInt(2));
+		permission.setDescription(cursor.getString(3));
+		return permission;
+	}
+	
+	public Permission getPermissionById(int id){
+		String selectQuery = "SELECT  * FROM " + DataBaseHelper.TABLE_PERMS + " WHERE id = ?";
+		Cursor cursor = database.rawQuery(selectQuery, new String[]{String.valueOf(id)});
+		Permission permission = null;
+		if (cursor.moveToFirst()) {
+			permission = cursorToPermission(cursor);
+		}
+
+		// make sure to close the cursor
+		cursor.close();
+		
 		return permission;
 	}
 }
