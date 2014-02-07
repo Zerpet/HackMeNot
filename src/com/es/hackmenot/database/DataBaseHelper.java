@@ -1,4 +1,4 @@
-package com.uc3m.hackmenot.database;
+package com.es.hackmenot.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

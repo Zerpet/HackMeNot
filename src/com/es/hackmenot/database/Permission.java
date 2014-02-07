@@ -1,4 +1,4 @@
-package com.uc3m.hackmenot.database;
+package com.es.hackmenot.database;
 
 public class Permission {
 	private int id;

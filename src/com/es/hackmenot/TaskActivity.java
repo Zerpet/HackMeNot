@@ -1,4 +1,4 @@
-package com.uc3m.hackmenot;
+package com.es.hackmenot;
 
 import java.util.List;
 

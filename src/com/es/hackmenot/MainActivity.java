@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.uc3m.hackmenot;
+package com.es.hackmenot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,22 +122,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    // The first section of the app is the most interesting -- it offers
-                    // a launchpad into the other demonstrations in this example application.
-                	Fragment fragment = new AppListFragment();
-	                return fragment;
-
-                default:
-                    /* The other sections of the app are dummy placeholders.
-                    Fragment fragment1 = new DummySectionFragment();
-                    Bundle args = new Bundle();
-                    args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-                    fragment1.setArguments(args);
-                    return fragment1;*/ 
-	                return new AppListFragment();
-            }
+                Fragment fragment = new AppListFragment();
+                Bundle args = new Bundle();
+                   
+                args.putInt(AppListFragment.tab, 3-i);
+                fragment.setArguments(args);
+                return fragment;
         }
 
         @Override
