@@ -2,8 +2,8 @@ package com.es.hackmenot;
 
 import java.util.List;
 
-import com.uc3m.hackmenot.database.Permission;
-import com.uc3m.hackmenot.database.PermissionsDataSource;
+import com.es.hackmenot.database.Permission;
+import com.es.hackmenot.database.PermissionsDataSource;
 
 import uc3m.hackmenot.R;
 import android.app.Activity;
@@ -52,7 +52,8 @@ public class TaskActivity extends Activity{
 			PackageInfo packageInfo 				= pm.getPackageInfo(package_, PackageManager.GET_PERMISSIONS);
 			String applicationName 					= (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");
 			Drawable applicationIcon 				= pm.getApplicationIcon(ai);		
-			PermissionsDataSource permission_data 	= new PermissionsDataSource(this);
+			PermissionsDataSource permission_data 	= new PermissionsDataSource(getBaseContext());
+			permission_data.open();
 			List<Permission> permissions_db 		= permission_data.getAllPermissions();
 			
 			TextView name = new TextView(this);
@@ -94,7 +95,7 @@ public class TaskActivity extends Activity{
 						@Override
 						public void onClick(View v) {
 							PermissionsDataSource permission_data = new PermissionsDataSource(v.getContext());
-							
+							permission_data.open();
 							AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 							builder.setMessage(permission_data.getPermissionById(v.getId()).getDescription())
 							       .setTitle(R.string.description);
