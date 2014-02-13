@@ -98,33 +98,52 @@ public class AppListFragment extends ListFragment {
 
 	private int getAppThreatLevel(AndroidApp app) {
 		String[] appPerms = app.getPerms();
-		int threat_level = 0;
+
+		int highsec = 0;
+		int medsec = 0;
+		int lowsec = 0;
+		int nullsec = 0;
 
 		if (appPerms == null) {
-			return 3;
+			return 1;
 		}
 
 		for (int i = 0; i < appPerms.length; i++) {
 			Iterator<Permission> iterator = perms.iterator();
-			try {
-				while (iterator.hasNext()) {
-					String permisobbdd = iterator.next().getPermission();
-					String permisoapp = appPerms[i];
-					String[] aux_tag = permisoapp.split("\\.");
-					permisoapp = aux_tag[aux_tag.length > 1 ? aux_tag.length - 1
-							: 0];
+			while (iterator.hasNext()) {
+				Permission per_aux = iterator.next();
+				String permisobbdd = per_aux.getPermission();
+				String permisoapp = appPerms[i];
+				String[] aux_tag = permisoapp.split("\\.");
+				permisoapp = aux_tag[aux_tag.length > 1 ? aux_tag.length - 1: 0];
 
-					if (permisobbdd.equals(permisoapp)) {
-						if (iterator.next().getThreatLevel() > threat_level) {
-							threat_level = iterator.next().getThreatLevel();
-						}
+				if (permisobbdd.equals(permisoapp)) {
+					switch (per_aux.getThreatLevel()) {
+					case 3:
+						highsec++;
+						break;
+					case 2:
+						medsec++;
+						break;
+					case 1:
+						lowsec++;
+						break;
+					default:
+						nullsec++;
 						break;
 					}
+					break;
 				}
-			} catch (Exception e) {
 			}
 		}
-		return threat_level;
+		
+		if(highsec > 3){
+			return 3;
+		}
+		if(highsec > 1){
+			return 2;
+		}
+		return 1;
 	}
 
 	@Override
